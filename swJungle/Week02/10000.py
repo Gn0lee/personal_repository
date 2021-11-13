@@ -18,10 +18,10 @@ x_list = collections.Counter(x_list)
 
 for i in x_list.values():
     if i >=2:
+        e += i
         v += 1
 
-e = (v-1)*2
+
 
 f = 2 -v +e
 print(f)
-# print(f)
