@@ -1,0 +1,8 @@
+val_str = input()
+a = int(val_str.split()[0])
+b = int(val_str.split()[1])
+print(a+b)
+print(a-b)
+print(a*b)
+print(a//b)
+print(a%b)
