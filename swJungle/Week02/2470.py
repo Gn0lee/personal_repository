@@ -1,40 +1,45 @@
-from collections import deque
 import sys
-import heapq
+from bisect import bisect_right, bisect_left
 
 
 liquid_num = int(input())
 liquid_list = list(map(int,sys.stdin.readline().split()))
-ans_list = [0]
-character_num = 3000000000
-heapq._heapify_max(liquid_list)
-if liquid_list[0] < 0:
-    a = liquid_list.pop(0)
-    heapq._heapify_max(liquid_list)
-    b = liquid_list.pop(0)
-    del ans_list[0]
-    ans_list.append([b,a])
-else:
-    heapq.heapify(liquid_list)
+liquid_list.sort()
 
-    if liquid_list[0] > 0:
-        a = heapq.heappop(liquid_list)
-        heapq.heapify(liquid_list)
-        b = heapq.heappop(liquid_list)
-        del ans_list[0]
-        ans_list.append([a,b])
-    else:
-        while len(liquid_list) > 1:
-            heapq.heapify(liquid_list)
-            a = heapq.heappop(liquid_list)
-            heapq._heapify_max(liquid_list)
-            b = heapq.heappop(liquid_list)
-            if a + b < character_num:
-                character_num = a+b
-                del ans_list[0]
-                ans_list.append([a,b])
+min_ph = 5000000000
+min_liquid_pair = [0,0]
 
-a , b = ans_list[0]
-print(a,b)
+if min(liquid_list) >= 0:
+    min_liquid_pair[0] = liquid_list[0]
+    min_liquid_pair[1] = liquid_list[1]
+    
+elif max(liquid_list) <= 0:
+    min_liquid_pair[0] = liquid_list[-2]
+    min_liquid_pair[1] = liquid_list[-1]
+    
+else:    
+    end_point_index = bisect_left(liquid_list,0)-1    
+            
+    for i in range(0,end_point_index+1):
+        if -liquid_list[i] in liquid_list:
+            min_liquid_pair[0] = liquid_list[i]
+            min_liquid_pair[1] = -liquid_list[i]
+            break
+        else:
+            pair_liquid_index = bisect_left(liquid_list,-liquid_list[i])-1
+            pH_mix = liquid_list[i]+liquid_list[pair_liquid_index]
+            if abs(pH_mix) < min_ph:
+                min_ph = abs(pH_mix)
+                min_liquid_pair[0] = liquid_list[i]
+                min_liquid_pair[1] = liquid_list[pair_liquid_index]
+    if 0 in liquid_list:
+        zero_index = bisect_left(liquid_list,0)
+        if -liquid_list[zero_index-1] < min_ph:
+            min_liquid_pair[0] = liquid_list[zero_index-1]
+            min_liquid_pair[1] = liquid_list[zero_index]
+        if liquid_list[zero_index+1] < min_ph:
+            min_liquid_pair[0] = liquid_list[zero_index]
+            min_liquid_pair[1] = liquid_list[zero_index+1]
 
+print(min_liquid_pair[0],min_liquid_pair[1])
 
