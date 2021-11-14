@@ -21,7 +21,8 @@ for i in x_list.values():
         e += i
         v += 1
 
-
+if v == 0:
+    e = N
 
 f = 2 -v +e
 print(f)

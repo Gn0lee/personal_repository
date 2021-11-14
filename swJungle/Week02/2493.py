@@ -9,10 +9,11 @@ cnt = tower_num - 1
 
 while cnt > 0:
     current_tower = towers[-1]
-    towers.rotate(1)
+    towers.appendleft(towers.pop())
+
     for i in range(1,cnt+1):
         if i == cnt:
-            towers.rotate(1)
+            towers.appendleft(towers.pop())
             if towers[-1] > current_tower:
                 ans[cnt] = cnt-i
                 towers.rotate(-i)
@@ -23,7 +24,7 @@ while cnt > 0:
             if towers[-1] > current_tower:
                 ans[cnt] = cnt
                 break
-            towers.rotate(1)
+            towers.appendleft(towers.pop())
             if towers[-1] > current_tower:
                 ans[cnt] = cnt-i
                 towers.rotate(-i)
