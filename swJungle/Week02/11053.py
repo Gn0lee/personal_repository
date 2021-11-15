@@ -1,28 +1,22 @@
 import sys
-from heapq import heappop
+from bisect import bisect_left
 
 N = int(input())
 A_list = list(map(int,sys.stdin.readline().split()))
 
 max_ans = 0
-if N==1:
-    max_ans = 1
-else:
-    while len(A_list) >1 :
-        a = A_list.pop(0)
-        b = [i for i in A_list]
-        cnt = 1
-        while b:
-            x = heappop(b)
-            if x > a :
-                cnt += 1
-                a = x
-            else:
-                cnt = 2
-                a = x
+lis = []
 
-        if cnt >= max_ans:
-            max_ans = cnt        
+for num in A_list:
+    if not lis:
+        lis.append(num)
+        max_ans += 1
+        continue
+    if lis[-1] < num:
+        lis.append(num)
+        max_ans += 1
+    else:
+        lis[bisect_left(lis,num)] = num
 
 
 print(max_ans)
