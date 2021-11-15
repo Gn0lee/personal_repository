@@ -6,15 +6,20 @@ M,N,L = list(map(int,sys.stdin.readline().split())) # M: 사대의 수 N: 동물
 
 gun_location = list(map(int,sys.stdin.readline().split()))
 
-animal_location = [ [False] + list(map(int,sys.stdin.readline().split()))  for _ in range(N)]
-
+animal_location = [  list(map(int,sys.stdin.readline().split()))  for _ in range(N)]
+gun_location.sort()
 animal_cnt = 0
 
-while gun_location:
-    gun = gun_location.pop()
-    for i in range(N):
-        if not animal_location[i][0] and (abs(animal_location[i][1]-gun)+animal_location[i][2]) <= L:
-            animal_cnt += 1
-            animal_location[i][0] = True
+for animal in animal_location:
+    if animal[1] >L:
+        continue
+    
+    min_gun = animal[0]-(L - animal[1])
+    max_gun = animal[0]+(L - animal[1])
+    if min_gun < 0:
+        min_gun = 1
+    if bisect_left(gun_location,min_gun) != bisect_right(gun_location,max_gun):
+        animal_cnt += 1
+            
 
 print(animal_cnt)
