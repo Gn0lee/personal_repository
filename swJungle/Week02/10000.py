@@ -7,6 +7,7 @@ e = 0
 f = 0
 x_list = []
 
+
 for i in range(N):
     x , r = list(map(int,sys.stdin.readline().split()))
     lower_x = x - r
@@ -22,7 +23,8 @@ for i in x_list.values():
         v += 1
 
 if v == 0:
-    e = N
-
+    e = N-1
+    
 f = 2 -v +e
+
 print(f)
