@@ -7,7 +7,6 @@ M,N,L = list(map(int,sys.stdin.readline().split())) # M: 사대의 수 N: 동물
 gun_location = list(map(int,sys.stdin.readline().split()))
 
 animal_location = [ [False] + list(map(int,sys.stdin.readline().split()))  for _ in range(N)]
-animal_location.sort(key=lambda x: x[0])
 
 animal_cnt = 0
 
