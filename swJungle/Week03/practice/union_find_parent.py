@@ -5,6 +5,8 @@ def find_parent(parent,x): #노드의 루트를 찾는 함수
         return find_parent(parent,parent[x])
     return x
 
+    ## parnent[x] = find_parent(parent,parent[x])
+    ## return parent[x]
 def union_parent(parent,a,b):
 
     a = find_parent(parent,a)
