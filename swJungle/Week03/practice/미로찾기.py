@@ -1,18 +1,17 @@
 import sys
 from collections import deque
-from typing import AnyStr
 
 n,m = map(int,sys.stdin.readline().split())
 
 chk = [[False]*m for _ in range(n)]
 ans = [[0]*m for _ in range(n)]
 
-miro = [list(map(int,sys.stdin.readline().split()))  for _ in range(n)  ]
+miro = [list(map(int,sys.stdin.readline().strip()))  for _ in range(n)  ]
 
 dy = [-1,0,1,0]
 dx = [0,1,0,-1]
 
-
+print(miro)
 
 def icecreem(y,x):
   
@@ -35,10 +34,7 @@ def icecreem(y,x):
                     
                     q.append([ny,nx,node+1])
 
-cnt = 10000000000
-
-
 icecreem(0,0)
 
-
+# print(ans)
 print(ans[n-1][m-1])
