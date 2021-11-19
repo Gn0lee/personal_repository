@@ -11,10 +11,10 @@ def topology_sort():
         now = q.popleft()
         result.append(now)
 
-        for i in graph[now]:
+        for i in graph[now]: #현재 노드에서 진입하는 간선 제거
             indegree[i] -= 1
             
-            if indegree[i] == 0:
+            if indegree[i] == 0: #진입차수가 0인 노드를 q에 삽입
                 q.append(i)
 
 
