@@ -1,37 +1,52 @@
+from collections import deque
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(10**9)
 
-def find_parent(x,parent):
-    if parent[x] != x:
-        parent[x] = find_parent(parent[x],parent)
-    
-    return parent[x]
+def bfs(v):
+    visited[v] = 1
+    q = deque([])
+    q.append(v)
 
-def union_parent(a,b,parent):
-    a = find_parent(a,parent)
-    b = find_parent(b,parent)
+    while q:
+        now = q.popleft()
+        for i in graph[now]:
+            if visited[i] == 0:
+                visited[i] = visited[now] *(-1)
+                q.append(i)
+            elif visited[i] == visited[now]:
+                return False
 
-    if a<b:
-        parent[b] = a
-    else:
-        parent[a] = b
+    return True
 
+def dfs(v,group):
+    visited[v] = group
+    for i in graph[v]:
+        if visited[i] == 0:
+            if not dfs(i,-group):
+                return False
+        elif visited[i] == visited[v]:
+            return False
+    return True
 
 
 k = int(input())
 for _ in range(k):
     v ,e = map(int,input().split())
-    parent = [0] *(v+1)
-    for i in range(1,v+1):
-        parent[i] = i
+    visited = [0] *(v+1)
+    graph = [[] for _ in range(v+1)]
     chk = True
     for _ in range(e):
         a , b = map(int,input().split())
-        if find_parent(a,parent) != find_parent(b,parent):
-            union_parent(a,b,parent)
-        else:
-            chk = False
-            break
+        graph[a].append(b)
+        graph[b].append(a)
+
+    for x in range(1,v+1):
+        if visited[x] == 0:
+            if not bfs(x):
+                chk = False
+                break
+
     if chk:
         print("YES")
     else:
