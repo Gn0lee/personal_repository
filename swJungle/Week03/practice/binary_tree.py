@@ -22,7 +22,7 @@ class BinarySearchTree:
                 return None
             if key == p.key:
                 return p.value
-            elif key < p.value:
+            elif key < p.key:
                 p = p.left
             else:
                 p = p.right
