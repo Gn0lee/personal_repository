@@ -12,8 +12,8 @@ def dfs(v,cnt):
             cnt += 1
     for i in graph[v]:
         if not visited[i] and location[i] == 0:
-            dfs(i,cnt)
-        
+            cnt = dfs(i,cnt)
+     
     return cnt
     
 
