@@ -1,46 +1,49 @@
-import sys
-input = sys.stdin.readline
-from collections import deque
+def find_parent(parent,x): #노드의 루트를 찾는 함수
+    
+    #루트 노드를 찾을때 까지 재귀호출
+    if parent[x] != x:
+    #     return find_parent(parent,parent[x])
+    # return x
+        parent[x] = find_parent(parent,parent[x])
+    return parent[x]
+def union_parent(parent,a,b):
 
-global minimum_cost
-minimum_cost = 1e9
+    a = find_parent(parent,a)
+    b = find_parent(parent,b)
 
-def bfs_bus(v):
-    global minimum_cost
-
-    q = deque([])
-    chk[v] = True
-    q.append([0,v])
-
-    while q:
-        now_cost,now = q.popleft()
-        if now_cost > minimum_cost:
-            return
-        for i in bus_infos[now]:
-            if not chk[i[1]] and i[1] != end:
-                chk[i[1]] = True
-                sum_cost = now_cost + i[0]
-                if sum_cost > minimum_cost:
-                    return
-                i[0] = sum_cost
-                q.append(i)
-            elif not chk[i[1]] and i[1] == end:
-                minimum_cost = min(now_cost + i[0],minimum_cost) 
-
-n = int(input())
-m = int(input())
-
-bus_infos = [[] for _ in range(n+1)]
-chk = [False] * (n+1)
-
-for _ in range(m):
-    a,b,cost = map(int,input().split())
-    bus_infos[a].append([cost,b])
-
-start, end = map(int,input().split())
-
-bfs_bus(start)
-print(minimum_cost)
+    if b >a : #루트가 작은쪽으로 루트를 갱신해줌
+        parent[b] = a
+    else:
+        parent[a] = b
 
 
+v  = int(input())
+parent = [0] * (v+1)
+cost_list = [0] * (v+1)
+for i in range(1,v+1):
+    parent[i] = i
 
+e = int(input())
+
+infos = []
+
+for i in range(e):
+    a , b , cost= map(int, input().split())
+    infos.append([cost,a,b])
+
+infos.sort()
+
+start , end = map(int, input().split())
+
+for info in infos:
+    if find_parent(parent,info[1]) != find_parent(parent,info[2]):
+        union_parent(parent,info[1],info[2])
+        cost_list[info[2]] = info[0]
+    else:
+        continue
+
+# print(cost_list)
+total = 0
+for i in range(start,end+1):
+    total += cost_list[i]
+print(total)
