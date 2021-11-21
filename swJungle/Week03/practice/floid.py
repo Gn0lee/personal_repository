@@ -23,3 +23,4 @@ for k in range(1,n+1):
             graph[j][i] = min(graph[j][i], graph[j][k]+graph[k][i])  #j -> i vs j -> k -> i 의 거리를 비교하여 작은값을 입력
 
 ### 3중 반복문이므로 노드의 수가 적을 때 효율적이다.
+### 노드의 개수가 500이하일때 사용가능
