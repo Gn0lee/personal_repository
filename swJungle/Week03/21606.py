@@ -10,8 +10,7 @@ def dfs(v,cnt):
     for i in graph[v]:
         if location[i] == 1:
             cnt += 1
-    for i in graph[v]:
-        if not visited[i] and location[i] == 0:
+        elif not visited[i] and location[i] == 0:
             cnt = dfs(i,cnt)
      
     return cnt
