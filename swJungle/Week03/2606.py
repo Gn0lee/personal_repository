@@ -36,4 +36,4 @@ for i in range(1,computers+1):
 # print(parent)
 
 print(Counter(parent)[1]-1)
-print(len(Counter(parent)))
+# print(len(Counter(parent)))
