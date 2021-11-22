@@ -84,4 +84,4 @@ while q:
             
     year +=1
         
-# print(0)
+print(0)
