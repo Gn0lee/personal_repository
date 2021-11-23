@@ -7,7 +7,7 @@ N = int(input())
 M = int(input())
 
 graph = [[] for _ in range(N+1)]
-graph2 = [[0]*(N+1) for _ in range(N+1)]
+graph2 = [[0]*(N+1) for _ in range(N+1)] ##부품개수 기록 리스트
 counts = [0]*(N+1)
 
 for _ in range(M):
@@ -25,18 +25,18 @@ def cal_parts():
 
     while q:
         now = q.popleft()
-        if graph2[now].count(0) == N+1:
+        if graph2[now].count(0) == N+1: ## 기본 부품인 경우
             for i in graph[now]:
                 counts[i[0]] -= 1
                 graph2[i[0]][now] += i[1]
                 if counts[i[0]] == 0:
                     q.append(i[0])
         else:
-            for i in graph[now]:
+            for i in graph[now]: ## 중간부품인 경우 -> 중간부품에 필요한 부품에 c를 곱하여 추가해줌
                 counts[i[0]] -= 1
                 for j in range(1,N+1):
                     graph2[i[0]][j] += graph2[now][j] * i[1]
-                if counts[i[0]] == 0:
+                if counts[i[0]] == 0: ##indegree가 0인 부품을 q에 추가해줌
                     q.append(i[0])
 
     return
