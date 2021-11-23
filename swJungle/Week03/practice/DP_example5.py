@@ -1,5 +1,5 @@
 #병사 배치하기
-
+#가장 큰 증가하는 수열
 import sys
 input = sys.stdin.readline
 
