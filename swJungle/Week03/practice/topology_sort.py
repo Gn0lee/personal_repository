@@ -18,7 +18,7 @@ def topology_sort():
                 q.append(i)
 
 
-result = []
+result = [] #여기서 경로간 가중치가 있을경우 DP 개념을 적용하여 최소경로 또는 최대 경로를 구할 수 있다.
 v , e = map(int,input().split())
 
 indegree = [0] *(v+1) ##노드로 들어오는 수를 셈
