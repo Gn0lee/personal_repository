@@ -1,57 +1,38 @@
 import sys
-input = sys.stdin.readline
 from collections import deque
+input = sys.stdin.readline
 
 
-inf = int(1e9)
+n , k = map(int,input().split())
+graph = [[] for _ in range(n)]
 
-def bfs(mid):
-    q= deque([])
+q = deque([])
 
-    visited = set()
-    visited.add(s)
-    q.append(s)
+for i in range(n):
+    graph[i] = list(map(int,input().split()))
+    for index , j in enumerate(graph[i]):
+        if j !=0:
+            q.append([j,i,index])
 
-    while q:
-        now = q.popleft()
+s , target_y,target_x = map(int,input().split())
 
-        for w , i in graph[now]:
-            if i not in visited and w >= mid:
-                
-                q.append(i)
-                visited.add(i)
+dy = [-1,0,1,0]
+dx = [0,1,0,-1]
 
-    if e in visited:
-        return True
-    else:
-        return False
-            
-            
+count = 0
 
+while count<s:
+    q = deque(sorted(list(q)))
+    for _ in range(len(q)):
+        virus,cy , cx = q.popleft()
+        
+        for k in range(4):
+            ny , nx = cy+dy[k], cx + dx[k]
+            if 0<=ny<n and 0<=nx<n and graph[ny][nx] == 0:
+                graph[ny][nx] = virus
+                q.append([virus,ny,nx])
+    count += 1
 
-
-n,m = map(int,input().split())
-
-graph = [[] for _ in range(n+1)]
-
-for _ in range(m):
-    a ,b, c = map(int,input().split())
-    graph[a].append([c,b])
-    graph[b].append([c,a])
-
-s,e = map(int,input().split())
-
-start = 1
-end = 1000000000
-result = 1
-while start <= end:
-    mid = (start + end)//2
-
-    if bfs(mid):
-        start = mid + 1
-        result = mid
-    else:
-        end = mid-1
-
-print(result)
-
+target_status = graph[target_y-1][target_x-1]
+# print(graph)
+print(target_status)
