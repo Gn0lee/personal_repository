@@ -89,7 +89,7 @@ Node* deleteNode(Node* root, int x)
     }
     else if ((p->left == NULL)||(p->right == NULL)){
         Node* child = (p->right == NULL) ? p->left : p->right;
-        if(parent==NULL)
+        if(parent==NULL) //x가 root인 경우
             root = child;
         else{
             if(parent->right == p)
