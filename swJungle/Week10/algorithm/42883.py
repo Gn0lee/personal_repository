@@ -2,11 +2,9 @@ from collections import deque
 
 def solution(number, k):
     answer = ''
-    number = deque(map(int,number))
     stack = []
 
-    while number:
-        now = number.popleft()
+    for now in number:
         
         while True:
             if not stack or k == 0:
@@ -20,11 +18,11 @@ def solution(number, k):
                 break
 
     if k >0:
-        for _ in range(k):
-            stack.pop()
+        stack = stack[:-k]
     
-    answer = "".join(list(map(str,stack)))  
+    answer = "".join(stack)  
     return answer
+
 
 
 
