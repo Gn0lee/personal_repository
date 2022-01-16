@@ -16,10 +16,12 @@ def solution(info, query):
     
     def make_q_list(r):
         
-        r_list = [ i for i in r.split() if i != "and" and i != "-"]
-    
-        if len(r_list) == 0:
-            return ["",grade]
+        # r_list = [ i for i in r.split() if i != "and" and i != "-"]
+
+        r = r.replace(" and", "")
+        r = r.replace("-","")
+        r_list = r.split()
+       
         r_grade = int(r_list.pop())
         
         return ["".join(r_list),r_grade]
@@ -57,92 +59,95 @@ print(solution(["java backend junior pizza 150","python frontend senior chicken 
 
 
 #from collections import defaultdict,deque
-# def solution(info, query):
-#     answer = []
-#     dict_info = {
-#         "cpp" : -1,
-#         "java" : -2,
-#         "python" : -3,
-#         "backend" : 1,
-#         "frontend" : 0,
-#         "junior" : 1,
-#         "senior" : 0,
-#         "chicken" : 1,
-#         "pizza" : 0,
-#         "-" : 0
-#     }
+def solution(info, query):
+    answer = []
+    dict_info = {
+        "cpp" : -1,
+        "java" : -2,
+        "python" : -3,
+        "backend" : 1,
+        "frontend" : 0,
+        "junior" : 1,
+        "senior" : 0,
+        "chicken" : 1,
+        "pizza" : 0,
+        "-" : 0
+    }
     
-#     def make_table(info,dict_info):
-#         people = [[] for _ in range(42)]
+    def make_table(info,dict_info):
+        people = [[] for _ in range(42)]
         
-#         for p in info:
-#             x = 1
-#             lang , area , year , food , grade = p.split()
-#             x = (x << 2) + dict_info[lang]
-#             x = (x << 1) + dict_info[area]
-#             x = (x << 1) + dict_info[year]
-#             x = (x << 1) + dict_info[food]
-#             people[x].append(int(grade))
-#         return people
+        for p in info:
+            x = 1
+            lang , area , year , food , grade = p.split()
+            x = (x << 2) + dict_info[lang]
+            x = (x << 1) + dict_info[area]
+            x = (x << 1) + dict_info[year]
+            x = (x << 1) + dict_info[food]
+            people[x].append(int(grade))
+        return people
     
-#     def make_q_list(r,dict_info):
-#         r = r.replace(" and","")
-#         r_lang , r_area , r_year, r_food, r_grade = r.split()
-#         r_grade = int(r_grade)
-#         x_list = deque([])
+    def make_q_list(r,dict_info):
+        r = r.replace(" and","")
+        r_lang , r_area , r_year, r_food, r_grade = r.split()
+        r_grade = int(r_grade)
+        x_list = deque([])
     
-#         if r_lang == "-":
-#             x_list = deque([1,2,3])
-#         else:
-#             x_list.append((1 << 2) + dict_info[r_lang])
-#         if r_area == "-":            
-#             for _ in range(len(x_list)):
-#                 now = x_list.pop()
-#                 x_list.appendleft((now<<1)+1)
-#                 x_list.appendleft((now<<1))
-#         else:
-#             for i in range(len(x_list)):
-#                 x_list[i] = (x_list[i]<<1) + dict_info[r_area]
-#         if r_year == "-":            
-#             for _ in range(len(x_list)):
-#                 now = x_list.pop()
-#                 x_list.appendleft((now<<1)+1)
-#                 x_list.appendleft((now<<1))
-#         else:
-#             for i in range(len(x_list)):
-#                 x_list[i] = (x_list[i]<<1) + dict_info[r_year]
-#         if r_food == "-":            
-#             for _ in range(len(x_list)):
-#                 now = x_list.pop()
-#                 x_list.appendleft((now<<1)+1)
-#                 x_list.appendleft((now<<1))
-#         else:
-#             for i in range(len(x_list)):
-#                 x_list[i] = (x_list[i]<<1) + dict_info[r_food]
+        if r_lang == "-":
+            x_list = deque([1,2,3])
+        else:
+            x_list.append((1 << 2) + dict_info[r_lang])
+        if r_area == "-":            
+            for _ in range(len(x_list)):
+                now = x_list.pop()
+                x_list.appendleft((now<<1)+1)
+                x_list.appendleft((now<<1))
+        else:
+            for i in range(len(x_list)):
+                x_list[i] = (x_list[i]<<1) + dict_info[r_area]
+        if r_year == "-":            
+            for _ in range(len(x_list)):
+                now = x_list.pop()
+                x_list.appendleft((now<<1)+1)
+                x_list.appendleft((now<<1))
+        else:
+            for i in range(len(x_list)):
+                x_list[i] = (x_list[i]<<1) + dict_info[r_year]
+        if r_food == "-":            
+            for _ in range(len(x_list)):
+                now = x_list.pop()
+                x_list.appendleft((now<<1)+1)
+                x_list.appendleft((now<<1))
+        else:
+            for i in range(len(x_list)):
+                x_list[i] = (x_list[i]<<1) + dict_info[r_food]
 
-#         return [x_list,r_grade]
-
-#     def cal_ans(r_list,people,grade):
-#         tmp = 0
-#         for y in r_list:
-#             people[y].sort()
-#             n = len(people[y])
-#             start , end = 0, n
-#             while start != end and start != n:
-#                 mid = (start + end) // 2
-#                 if people[y][mid] >= grade:
-#                     end = mid
-#                 else:
-#                     start = mid + 1
-#             tmp += n - start
-#         return tmp
+        return [x_list,r_grade]
+    
+    def cal_ans(r_list,people,grade):
+        tmp = 0
+        for y in r_list:
+            
+            n = len(people[y])
+            start , end = 0, n
+            while start != end and start != n:
+                mid = (start + end) // 2
+                if people[y][mid] >= grade:
+                    end = mid
+                else:
+                    start = mid + 1
+            tmp += n - start
+        return tmp
   
-#     people = make_table(info,dict_info)
-
-#     for request in query:
-#         r_list , grade = make_q_list(request,dict_info)
+    people = make_table(info,dict_info)
+    
+    for value in people:
+        value.sort()
+    
+    for request in query:
+        r_list , grade = make_q_list(request,dict_info)
         
-#         answer.append(cal_ans(r_list,people,grade))    
+        answer.append(cal_ans(r_list,people,grade))    
                 
-#     return answer
+    return answer
 
