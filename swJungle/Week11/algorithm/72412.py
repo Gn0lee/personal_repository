@@ -1,61 +1,61 @@
 from collections import defaultdict,deque
 from itertools import combinations
-def solution(info, query):
-    answer = []
+# def solution(info, query):
+#     answer = []
     
-    def make_table(info):
-        people = defaultdict(list)
+#     def make_table(info):
+#         people = defaultdict(list)
         
-        for p in info:
-            p_list = p.split()
-            grade = int(p_list.pop())
-            for n in range(5):
-                for i in list(combinations(p_list,n)):
-                    people["".join(i)].append(grade)
-        return people
+#         for p in info:
+#             p_list = p.split()
+#             grade = int(p_list.pop())
+#             for n in range(5):
+#                 for i in list(combinations(p_list,n)):
+#                     people["".join(i)].append(grade)
+#         return people
     
-    def make_q_list(r):
+#     def make_q_list(r):
         
-        # r_list = [ i for i in r.split() if i != "and" and i != "-"]
+#         # r_list = [ i for i in r.split() if i != "and" and i != "-"]
 
-        r = r.replace(" and", "")
-        r = r.replace("-","")
-        r_list = r.split()
+#         r = r.replace(" and", "")
+#         r = r.replace("-","")
+#         r_list = r.split()
        
-        r_grade = int(r_list.pop())
+#         r_grade = int(r_list.pop())
         
-        return ["".join(r_list),r_grade]
+#         return ["".join(r_list),r_grade]
 
-    def cal_ans(key,people,grade):
-        tmp = 0
+#     def cal_ans(key,people,grade):
+#         tmp = 0
     
         
-        n = len(people[key])
-        start , end = 0, n
-        while start != end and start != n:
-            mid = (start + end) // 2
-            if people[key][mid] >= grade:
-                end = mid
-            else:
-                start = mid + 1
-        tmp += n - start
-        return tmp
+#         n = len(people[key])
+#         start , end = 0, n
+#         while start != end and start != n:
+#             mid = (start + end) // 2
+#             if people[key][mid] >= grade:
+#                 end = mid
+#             else:
+#                 start = mid + 1
+#         tmp += n - start
+#         return tmp
   
-    people = make_table(info)
+#     people = make_table(info)
 
-    for value in people.values():
-        value.sort()
+#     for value in people.values():
+#         value.sort()
 
-    for request in query:
-        key , grade = make_q_list(request)
+#     for request in query:
+#         key , grade = make_q_list(request)
         
-        answer.append(cal_ans(key,people,grade))    
+#         answer.append(cal_ans(key,people,grade))    
                 
-    return answer
+#     return answer
 
 
 
-print(solution(["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"],["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]))
+# print(solution(["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"],["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]))
 
 
 #from collections import defaultdict,deque
@@ -146,8 +146,9 @@ def solution(info, query):
     
     for request in query:
         r_list , grade = make_q_list(request,dict_info)
-        
+        print(*r_list)
         answer.append(cal_ans(r_list,people,grade))    
                 
     return answer
 
+print(solution(["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"],["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]))
