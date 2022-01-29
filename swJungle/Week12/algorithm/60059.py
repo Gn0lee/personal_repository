@@ -35,9 +35,6 @@ def solution(key, lock):
             for x in range(n_key+n_lock-1):
                 if chk_open(y,x,key):
                     return True
-
         key = rotate(key)
-         
-    return False
 
-print(solution([[1, 0], [0, 1]],[[1, 1,0], [1,0, 1],[1,1,1]]))
+    return False
