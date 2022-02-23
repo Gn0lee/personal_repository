@@ -15,16 +15,26 @@ const server = http.createServer(app);
 
 const wss = new WebSocket.Server({server});
 
-
+const sockets = [];
 
 wss.on("connection",(socket)=>{
+    sockets.push(socket);
+    socket["nickname"] = "Anon";
     socket.on("close",()=>{
         console.log("client close connect");
     });
     socket.on("message",(message)=>{
-        console.log(message);
+        // console.log(message);
+        const parsed = JSON.parse(message.toString());
+
+        switch(parsed.type){
+            case "new_message":
+                sockets.forEach(aSocket => aSocket.send(`${socket.nickname}:${parsed.payload}`));
+            case "nickname":
+                console.log(parsed.payload);
+                socket["nickname"] = parsed.payload;
+        }       
     });
-    socket.send("hello");
 });
 
 server.listen(3000,handleListen);
