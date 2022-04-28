@@ -1,7 +1,7 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,python,venv,windows,macos,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,python,venv,windows,macos,java
-
+node_modules/
 ### C ###
 # Prerequisites
 *.d
