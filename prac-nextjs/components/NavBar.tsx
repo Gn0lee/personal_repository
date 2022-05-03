@@ -17,9 +17,6 @@ export default function NavBar() {
           background-color: grey;
           width: fit-content;
         }
-        a {
-          text-decoration: none;
-        }
         .active {
           color: red;
         }
