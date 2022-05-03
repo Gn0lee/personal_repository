@@ -10,7 +10,7 @@ export default function NavBar() {
         <a style={{ color: router.pathname === "/" ? "red" : "blue" }}>home</a>
       </Link>
       <Link href="/about">
-        <a style={{ color: router.pathname === "about" ? "red" : "blue" }}>
+        <a style={{ color: router.pathname === "/about" ? "red" : "blue" }}>
           about
         </a>
       </Link>
