@@ -36,6 +36,26 @@ const bfs = (y, x, grid) => {
   return tmp;
 };
 
+const dfs = (y, x, grid) => {
+  if (
+    0 > y ||
+    y >= grid.length ||
+    0 > x ||
+    x >= grid[0].length ||
+    grid[y][x] === 0
+  )
+    return 0;
+  grid[y][x] = 0;
+
+  return (
+    1 +
+    dfs(y + 1, x, grid) +
+    dfs(y - 1, x, grid) +
+    dfs(y, x + 1, grid) +
+    dfs(y, x - 1, grid)
+  );
+};
+
 var maxAreaOfIsland = function (grid) {
   let m = grid.length;
   let n = grid[0].length;
@@ -44,10 +64,11 @@ var maxAreaOfIsland = function (grid) {
 
   for (let y = 0; y < m; y++) {
     for (let x = 0; x < n; x++) {
-      if (grid[y][x] === 1) {
-        let currArea = bfs(y, x, grid);
-        answer = Math.max(answer, currArea);
-      }
+      // if(grid[y][x] === 1){
+      //     let currArea = bfs(y,x,grid);
+      //     answer = Math.max(answer, currArea);
+      // }
+      answer = Math.max(answer, dfs(y, x, grid));
     }
   }
 
