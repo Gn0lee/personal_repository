@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>동적 스크립트 연습</title>
+  <script defer>
+    window.a = function (){
+      const a = document.getElementById('value')
+
+      alert(a.innerText)
+    }
+
+  </script>
+</head>
+<body>
+
+<div id="value">0</div>
+
+<button id="button">+</button>
+
+<button id="get_value">get!</button>
+
+</body>
+
+<script>
+  const button = document.getElementById('button')
+
+  const c = document.getElementById('get_value')
+
+  button.addEventListener('click', ev => {
+    const valueElement = document.getElementById('value')
+
+    valueElement.innerText = (Number(valueElement.innerText) + 1).toString()
+  })
+
+  c.addEventListener('click', () => {
+    window.a()
+  })
+
+</script>
+</html>
